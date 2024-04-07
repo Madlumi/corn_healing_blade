@@ -4,13 +4,18 @@
 
 linux: 
 
-> make run
+
 
 > make linux
 
+or just
+
+> make run
+
+
 windows:
 
-idk
+idk lmao
 
 ## play:
 
