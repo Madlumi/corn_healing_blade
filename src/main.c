@@ -1,7 +1,8 @@
 #include "util/mutil.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "raylib.h"
+//#include "raylib.h"
+#include <raylib.h>
 #include <math.h>
 F t = 0; I score;
 F getZ(F x, F y){R  sin(x+y+t);}
@@ -18,17 +19,18 @@ V caminit(){camera.position = (Vector3){ 9.10f, 45.0f, 0.00f };camera.target = (
    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };camera.fovy = 45.0f;camera.projection = CAMERA_PERSPECTIVE;}
 V wininit(){
    CON I screenWidth = 800; CON I screenHeight = 800;
-   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+//   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+   SetConfigFlags(FLAG_MSAA_4X_HINT);
    InitWindow(screenWidth, screenHeight, "corn_healing_blade");
    SetTargetFPS(60);
 }
 I play=0;
 #define  planeS 32 //view planme size
 #define  planeH 12 //view planme size
-#define pfS 21 //playfieldsize
+#define pfS 11 //playfieldsize
 Vector3 mapPosition ={ (F)-planeS/2, 0.0f, (F)-planeS/2 };
 V terraininit(){
-   Image image = GenImagePerlinNoise(pfS, pfS, 50, 50, 8.0f);
+   Image image = GenImagePerlinNoise(pfS+1, pfS+1, 50, 50, 8.0f);
    ImageColorTint(&image, GREEN);
    Mesh mesh = GenMeshHeightmap(image, (Vector3){ planeS, planeH, planeS});
    model = LoadModelFromMesh(mesh);
@@ -55,7 +57,7 @@ V Render(){
    //DrawFPS(10, 10);
    EndDrawing();
 }
-I board[21*21];
+I board[pfS*pfS];
 I head[3]={10,10,3};//x,y,len,speed
 I fruit[2]={10,10};//x,y,len,speed
 I dir = 3;
@@ -103,10 +105,10 @@ V Tick(){
       dir=ndir;
       head[0]+=(dir-2)%2;
       head[1]+=(dir-1)%2 ;
-      if(head[0]>=21){head[0]=0;}
-      if(head[1]>=21){head[1]=0;}
-      if(head[0]<0){head[0]=20;}
-      if(head[1]<0){head[1]=20;}
+      if(head[0]>=pfS){head[0]=0;}
+      if(head[1]>=pfS){head[1]=0;}
+      if(head[0]<0){head[0]=pfS-1;}
+      if(head[1]<0){head[1]=pfS-1;}
       if(board[head[0]+head[1]*pfS]>0){ play=false; }
       if(head[0]==fruit[0]&&head[1]==fruit[1]){score++;newFruit(); head[2]+=1; }
       board[head[0]+head[1]*pfS]=head[2];
@@ -122,7 +124,7 @@ V Tick(){
             }
          }};
       c[fruit[0]+fruit[1]*pfS]=(Color){254,25,25,255 };
-      Image ii = (Image){c,21,21,1, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8};
+      Image ii = (Image){c,pfS ,pfS,1, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8};
       texture = LoadTextureFromImage(ii);
       model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
       UnloadImage(ii);

@@ -1,0 +1,26 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-o",
+      "out/black",
+      "src/main.c"
+    ],
+    "directory": "/home/madi/proj/c/corn_healing_blade",
+    "file": "/home/madi/proj/c/corn_healing_blade/src/main.c",
+    "output": "/home/madi/proj/c/corn_healing_blade/out/black"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-o",
+      "out/black",
+      "src/util/noise.c"
+    ],
+    "directory": "/home/madi/proj/c/corn_healing_blade",
+    "file": "/home/madi/proj/c/corn_healing_blade/src/util/noise.c",
+    "output": "/home/madi/proj/c/corn_healing_blade/out/black"
+  }
+]
