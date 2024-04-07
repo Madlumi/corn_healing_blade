@@ -2,8 +2,15 @@
 
 ## compile:
 
-make run
-make linux
+linux: 
+
+> make run
+
+> make linux
+
+windows:
+
+idk
 
 ## play:
 
