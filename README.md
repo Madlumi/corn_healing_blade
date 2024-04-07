@@ -1,9 +1,11 @@
 # snake game in c/raylib 🐍
 
-compile:
+## compile:
+
 make run
 make linux
 
-play:
+## play:
+
 arrows
 esc to exit
