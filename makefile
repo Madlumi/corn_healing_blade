@@ -8,7 +8,7 @@ run: linux
 	./$(outdir)$(outname)
 linux:
 	-mkdir $(outdir)
-	gcc src/main.c src/util/*.c -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -lm -o $(outdir)$(outname)
+	gcc src/main.c  -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -lm -o $(outdir)$(outname)
 wasm:
 	-mkdir $(outdir)
 	-mkdir $(webdir)
