@@ -18,8 +18,9 @@ V quit(){
 V caminit(){camera.position = (Vector3){ 9.10f, 45.0f, 0.00f };camera.target = (Vector3){ 1.3f, 5.0f, 0.0f };
    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };camera.fovy = 45.0f;camera.projection = CAMERA_PERSPECTIVE;}
 V wininit(){
+   SetTraceLogLevel(LOG_ERROR);
    CON I screenWidth = 800; CON I screenHeight = 800;
-//   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+   //   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
    SetConfigFlags(FLAG_MSAA_4X_HINT);
    InitWindow(screenWidth, screenHeight, "corn_healing_blade");
    SetTargetFPS(60);
@@ -30,7 +31,7 @@ I play=0;
 #define pfS 11 //playfieldsize
 Vector3 mapPosition ={ (F)-planeS/2, 0.0f, (F)-planeS/2 };
 V terraininit(){
-   Image image = GenImagePerlinNoise(pfS+1, pfS+1, 50, 50, 8.0f);
+   Image image = GenImagePerlinNoise(1*(pfS+1),1*( pfS+1), 50, 50, 8.0f);
    ImageColorTint(&image, GREEN);
    Mesh mesh = GenMeshHeightmap(image, (Vector3){ planeS, planeH, planeS});
    model = LoadModelFromMesh(mesh);
@@ -49,7 +50,7 @@ V Render(){
       //sprintf(char *, const char *, ...)
       DrawText(sc,GetScreenWidth()/2-10*6 , 15, 50, WHITE);
    }else{
-   DrawText("press <<ENTER>> to play", GetScreenWidth()/2-30*6, GetScreenHeight()/2-25, 30, PINK);
+      DrawText("press <<ENTER>> to play", GetScreenWidth()/2-30*6, GetScreenHeight()/2-25, 30, PINK);
       char sc[100];
       sprintf(sc, "Score: %d",score);
       if(score>0){DrawText(sc,GetScreenWidth()/2-10*10 , GetScreenHeight()/2+10, 50, WHITE);}
@@ -64,26 +65,26 @@ I dir = 3;
 I spd = 7;
 I spdT=0;
 V newFruit(){
- fruit[0]=rand()%pfS;
- fruit[1]=rand()%pfS;
-if(board[fruit[0]+
- fruit[1]*pfS]>0){newFruit();};
+   fruit[0]=rand()%pfS;
+   fruit[1]=rand()%pfS;
+   if(board[fruit[0]+
+      fruit[1]*pfS]>0){newFruit();};
 
 }
 
 I ndir=0;
 V reset(){
-      for(int x = 0; x < pfS;x++){
-         for(int y = 0; y < pfS;y++){board[x+y*pfS]=0;}}
+   for(int x = 0; x < pfS;x++){
+      for(int y = 0; y < pfS;y++){board[x+y*pfS]=0;}}
 
- head[0]=10;
- head[1]=10;
- head[2]=3;
- dir = 3;
+   head[0]=10;
+   head[1]=10;
+   head[2]=3;
+   dir = 3;
    ndir=dir;
- spd = 7;
- spdT=0;
- newFruit();
+   spd = 7;
+   spdT=0;
+   newFruit();
    score=0;
 }
 V Tick(){
@@ -93,10 +94,10 @@ V Tick(){
 
    //UnloadImageColors(c);
    if(IsKeyPressed(KEY_ENTER) && !play){
-   play=true;
+      play=true;
       reset();
    }
- 
+
    if(IsKeyPressed(KEY_UP)&&dir%2!=1){ ndir=1; }
    if(IsKeyPressed(KEY_DOWN)&&dir%2!=1){ ndir=3; }
    if(IsKeyPressed(KEY_RIGHT)&&dir%2!=0){ ndir=0; }
